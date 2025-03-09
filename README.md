@@ -1,9 +1,35 @@
 # Alpaca Health Software Engineering Take-Home Project
 
-### Project Description
+## Approach
 
-Visit this link for details:
-[https://harviio.notion.site/Alpaca-Health-Eng-Take-home-Project-1411bfc50b90803382d4cae01f9bcf18?pvs=4](https://www.notion.so/harviio/ABA-Session-Note-Generator-Take-Home-Project-1411bfc50b90803382d4cae01f9bcf18?pvs=4)
+### Backend:
+
+The scheduling algorithm described uses a combination of greedy algorithm for sorting clients and backtracking to generate optimized, non-overlapping schedules.
+
+### Steps:
+
+1. **Filter Clients**: Select clients whose availability overlaps with the clinician’s availability.
+
+2. **Calculate Drive Times**: Compute the drive time for each client.
+
+3. **Sort Clients**: Clients are sorted using two different sorting method: one prioritizing earliest availability, then drive time, while the other prioritizes drive time first, then earliest availability, Both method factors the number of client availabilities.
+
+4. **Backtracking**: A backtracking algorithm is used to generate valid schedules. It ensures there are no overlapping sessions and that travel times between clients are respected.
+
+5. **Result**: The final output consists of two schedules, each containing sessions for all five days.
+
+### Frontend:
+
+1. Generates and displays schedule options based on clinician ID.
+
+2. Fetches schedule data from an API and handles errors.
+
+3. Allows the user to select a schedule, view details, and reset the process.
+
+## Design Decisions
+
+- **Backtracking**: Chose backtracking to explore all possible schedules while respecting client availability and drive times, ensuring the generated schedules are valid.
+- **Greedy Sorting**: Clients are sorted based on availability and drive time to prioritize the most feasible clients first.
 
 ## Setup Instructions
 
@@ -40,40 +66,10 @@ The application will be available at:
 - Backend API: http://localhost:8000
 - API Documentation: http://localhost:8000/docs
 
-## Default Project Structure
+## Assumptions
 
-- `frontend/`: Next.js application
-  - `src/components/`: Reusable React components
-  - `src/app/`: Next.js app router pages
-- `backend/`: FastAPI application
-  - `app/main.py`: API endpoints
+1. A client can only have one session in a given day.
 
-## Development
+## Note:
 
-- Frontend runs on port 3000 with hot reload enabled
-- Backend runs on port 8000 with auto-reload enabled
-- API documentation available at http://localhost:8000/docs
-
-## Submission
-
-1. Create a private GitHub repository
-2. Implement your solution
-3. Document any assumptions or trade-offs
-4. Include instructions for running your solution
-5. Send us the repository link
-
-## Time Expectation
-
-- Expected time: 3-4 hours
-- Please don't spend more than 6 hours
-
-## Evaluation Criteria
-
-| Category | Details | Weight |
-|----------|---------|--------|
-| Product sense and scoping | - Final product decisions alignment with requirements<br>- Appropriate deprioritization of non-crucial parts | 10% |
-| Technology selection | - Right tools chosen for the job | 10% |
-| Technical Level | - Well-organized and intuitive code structure<br>- Modular code (e.g., React components used)<br>- Proper use of React hooks<br>- Good state management<br>- Correct use of useEffect hooks | 40% |
-| Craft and Quality | - Usable and intuitive UI/UX<br>- Presence and severity of bugs | 20% |
-| Documentation | - Clear communication of logic and technical decisions in README | 10% |
-| Testing | - Presence of tests<br>- Quality and robustness of tests | 10% |
+In the data, the drive time for some cities are missing, so during testing, some sessions might overlap.
